@@ -1,0 +1,164 @@
+PING 100.1.1.1 (100.1.1.1) 56(84) bytes of data.
+64 bytes from 100.1.1.1: icmp_seq=1 ttl=255 time=0.097 ms
+64 bytes from 100.1.1.1: icmp_seq=2 ttl=255 time=0.135 ms
+64 bytes from 100.1.1.1: icmp_seq=3 ttl=255 time=0.136 ms
+64 bytes from 100.1.1.1: icmp_seq=4 ttl=255 time=0.116 ms
+64 bytes from 100.1.1.1: icmp_seq=5 ttl=255 time=0.132 ms
+
+--- 100.1.1.1 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4074ms
+rtt min/avg/max/mdev = 0.097/0.123/0.136/0.016 ms
+********************************************************************************
+Experiment demoET   30-Jun-2020 18:04:59
+********************************************************************************
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under GNU/Octave 64-Bit (Version 3.0.15 - Build date: Sep 20 2019).
+PTB-INFO: Support status on this operating system release: Linux 5.0.0-32-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: See /usr/share/doc/psychtoolbox-3-common/README.Debian to make this work.
+
+
+PTB-INFO: OpenGL-Renderer is Intel Open Source Technology Center :: Mesa DRI Intel(R) HD Graphics 530 (Skylake GT2)  :: 3.0 Mesa 19.0.8
+PTB-INFO: VBL startline = 1050 , VBL Endline = -1
+PTB-INFO: Will try to use OS-Builtin OpenML sync control support for accurate Flip timestamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.679397 ms [59.954207 Hz]. (50 valid samples taken, stddev=0.002375 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.679455 ms [59.953999 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for OpenGL 3D graphics rendering enabled: depth-buffer and stencil buffer attached.
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+info =
+
+  scalar structure containing the fields:
+
+    window =  10
+    viewingDistance =  500
+    fps =  59.954
+    screenRect =
+
+          0      0   1680   1050
+
+    screenSize =
+
+       444   277
+
+    screenCenter =
+
+       840   525
+
+    pixelsPerDegree =  33.037
+    backgroundColor =
+
+       0   0   0
+
+    screenNumber = 0
+    maxPriority =  1
+    usePriority = 1
+    setupTime =    1.5935e+15
+    id =  101
+    textColor =
+
+       0   0   0
+
+    edfFile = r0101.edf
+    version = 4.2.2
+    eyelink =  1
+    dummyMode = 0
+
+* Connecting to Eyelink...OK
+* Running experiment on a 'EYELINK CL 5.15  ' tracker.
+Eyelink connected, EDF file 'r0101.edf' created.
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+* Receiving data file 'r0101.edf'...
+* ReceiveFile status = 1763680
+* Data file 'r0101.edf' can be found in '/home/lab/Experiments/demo_eyetracking'
+PING 100.1.1.1 (100.1.1.1) 56(84) bytes of data.
+64 bytes from 100.1.1.1: icmp_seq=1 ttl=255 time=0.091 ms
+64 bytes from 100.1.1.1: icmp_seq=2 ttl=255 time=0.143 ms
+64 bytes from 100.1.1.1: icmp_seq=3 ttl=255 time=0.135 ms
+64 bytes from 100.1.1.1: icmp_seq=4 ttl=255 time=0.138 ms
+64 bytes from 100.1.1.1: icmp_seq=5 ttl=255 time=0.137 ms
+
+--- 100.1.1.1 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4100ms
+rtt min/avg/max/mdev = 0.091/0.128/0.143/0.023 ms
+********************************************************************************
+Experiment demoET   30-Jun-2020 18:06:27
+********************************************************************************
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under GNU/Octave 64-Bit (Version 3.0.15 - Build date: Sep 20 2019).
+PTB-INFO: Support status on this operating system release: Linux 5.0.0-32-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: See /usr/share/doc/psychtoolbox-3-common/README.Debian to make this work.
+
+
+PTB-INFO: OpenGL-Renderer is Intel Open Source Technology Center :: Mesa DRI Intel(R) HD Graphics 530 (Skylake GT2)  :: 3.0 Mesa 19.0.8
+PTB-INFO: VBL startline = 1050 , VBL Endline = -1
+PTB-INFO: Will try to use OS-Builtin OpenML sync control support for accurate Flip timestamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.679406 ms [59.954173 Hz]. (50 valid samples taken, stddev=0.007211 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.679455 ms [59.953999 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for OpenGL 3D graphics rendering enabled: depth-buffer and stencil buffer attached.
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+info =
+
+  scalar structure containing the fields:
+
+    window =  10
+    viewingDistance =  500
+    fps =  59.954
+    screenRect =
+
+          0      0   1680   1050
+
+    screenSize =
+
+       444   277
+
+    screenCenter =
+
+       840   525
+
+    pixelsPerDegree =  33.037
+    backgroundColor =
+
+       0   0   0
+
+    screenNumber = 0
+    maxPriority =  1
+    usePriority = 1
+    setupTime =    1.5935e+15
+    id =  102
+    textColor =
+
+       0   0   0
+
+    edfFile = r0102.edf
+    version = 4.2.2
+    eyelink =  1
+    dummyMode = 0
+
+* Connecting to Eyelink...OK
+* Running experiment on a 'EYELINK CL 5.15  ' tracker.
+Eyelink connected, EDF file 'r0102.edf' created.
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+PTB-WARNING: Failed to enable system memory locking with Priority(1) [Cannot allocate memory]!
+* Receiving data file 'r0102.edf'...
+* ReceiveFile status = 1767388
+* Data file 'r0102.edf' can be found in '/home/lab/Experiments/demo_eyetracking'

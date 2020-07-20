@@ -1,0 +1,153 @@
+---
+title: "Načítání eyetrackerových dat do R"
+author: "Jiří Lukavský"
+output: html_document
+---
+
+## Přípravy
+
+Nejprve načteme potřebné knihovny: `tidyverse` (moderní knihovna pro práci s daty)
+a `eyelinker` (pro práci se soubory EyeLinku). 
+Pokud nejsou nainstalované, program je nainstaluje.
+
+```{r setup, message=FALSE, warning=FALSE}
+if (!require('tidyverse')) install.packages('tidyverse')
+if (!require('eyelinker')) install.packages('eyelinker')
+library(tidyverse)
+library(eyelinker)
+
+# pro poslední ukázku používáme i balíček jpeg
+if (!require('jpeg')) install.packages('jpeg')
+```
+
+V naší ukázce načteme data z prvního souboru a zobrazíme si je. 
+Dále si definujeme konstanty, které budeme používat při analýze 
+(velikost obrazovky, velikost obrázku).
+
+```{r constants}
+fn1 <- file.path("..", "data", "r0101.asc")
+screen_size = c(1680, 1050)
+image_size = c(1024, 1024)
+```
+
+
+## Načtení dat
+
+Pomocí příkazu `read.asc` načteme data. Z výukových důvodů načítáme data takto na začátku souboru s analýzami. U delších dat může import déle trvat a proto jej provádíme obvyklem jen jednou a výsledek zapíše v R formátu (saveRDS).
+
+Výsledkem je seznam tabulek, kde jsou již údaje roztříděné (např. fixace, události a mrknutí zvlášť).
+
+```{r import}
+e1 <- eyelinker::read.asc(fn1)
+
+# co obsahuje seznam
+names(e1)
+
+# zde nás budou zajímat údaje o fixacích a události, 
+# protože ukazují, kdy začala prezentace obrázku
+e1$msg
+e1$fix
+```
+
+
+Abychom si ušetřili práci, pro případné načitání dat od dalších osob, vytvoříme si krátkou funkci, která nám data připraví pro další analýzu.
+
+```{r function_def}
+fixations_for_each_trial <- function(edata, 
+           duration = 5000, 
+           eyes = c("L", "R"),
+           origin = c(0, 0), 
+           imagesize = NULL) {
+  # najdeme syncronizační značky mezi událostmi
+  sync_messages <- 
+    edata$msg %>% 
+    filter(text == "SYNCTIME") %>% 
+    select(block, time0 = time)
+  # k fixacím přidáme data o sychronizační značce (kdy byl zobrazen obrázek)
+  # a přepočítáme časy fixací relativně 
+  fixations <- 
+    edata$fix %>% 
+    left_join(sync_messages, by = "block") %>% 
+    mutate(stime = stime - time0, etime = etime - time0) %>% 
+    select(-time0)
+  # ponecháme jen data pro jedno oko (pokud chceme)
+  # přepočítáme souřadnice podle horního levého rohu obrázku
+  fixations <- 
+    fixations %>% 
+    filter(eye %in% eyes) %>% 
+    mutate(x = axp - origin[1], y = ayp - origin[2], inside = NA_integer_)
+  # pro jednotlivé fixace si označíme, zda dopadaly na obrázek nebo 
+  # za jeho hranice (usnadní nám jejich případné zahození)
+  if (!is.null(imagesize)) {
+    fixations <- fixations %>% 
+      mutate(inside = 
+               (x >= 0) & (x <= imagesize[1]) & 
+               (y >= 0) & (y <= imagesize[2]))
+  }
+  # odstraníme fixace před začátkem nebo po konci trialu
+  fixations <- 
+    fixations %>% 
+    filter(etime > 0, stime < duration)
+  # vrátíme jednu tabulku s fixacemi
+  fixations %>% 
+    select(block, stime, etime, eye, x, y, dur, pupil = aps, inside)
+}
+```
+
+Nyní si načteme data a podíváme se na ně.
+
+```{r process_data}
+ff1 <- fixations_for_each_trial(
+  e1, 
+  origin = screen_size / 2 - image_size / 2, 
+  imagesize = image_size
+)
+ff1
+```
+
+## Zobrazení dat
+
+Nyní již máme data v tabulce pro další zpracování a mohla by následovat statistická analýza.
+
+Můžeme si data také zobrazit. 
+Obrázek ukazuje fixace jednoho člověka při prohlížení všech čtyř obrázků. Jednotlivé fixace můžete vidět dvakrát, protože jsme ponechali data z obou očí.
+
+Při tvorbě obrázků otáčíme souřadnice osy y (-y), protože pixelové souřadnice mají počátek vlevo nahoře a směrem dolů rostou, ale v grafech je počátek vlevo dole a směrem nahoru roste. 
+
+Příkaz `coor_fixed` používáme, aby byla zachována pixelová vzdálenost na osách x a y.
+
+```{r graph1}
+ggplot(ff1, aes(x, -y)) +
+  geom_point() +
+  theme_minimal() +
+  coord_fixed(xlim = c(0, image_size[1]), 
+              ylim = c(-image_size[2], 0)) +
+  facet_wrap(~block)
+```
+
+Do grafu je možné přidat i sakády a velikost bodů upravit podle délky fixací, podobně jako v Data Vieweru.
+
+```{r graph2}
+ggplot(ff1, aes(x, -y, group = eye, size = dur)) +
+  geom_line(col = "red", size = 1) +
+  geom_point() +
+  theme_minimal() +
+  coord_fixed(xlim = c(0, image_size[1]), 
+              ylim = c(-image_size[2], 0)) +
+  facet_wrap(~block)
+```
+
+Do grafu je možné přidat i původní obrázek.
+
+```{r graph3}
+im1 <- jpeg::readJPEG(file.path("..", "images", "image_001.jpg"))
+
+ggplot(ff1, aes(x, -y)) +
+  annotation_custom(grid::rasterGrob(im1), 
+                    0, 1024, -1024, 0) +
+  geom_point() +
+  theme_minimal() +
+  coord_fixed(xlim = c(0, image_size[1]), 
+              ylim = c(-image_size[2], 0))
+```
+
